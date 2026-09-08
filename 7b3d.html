@@ -162,7 +162,17 @@ footer p:last-child{margin-bottom:0}
 footer h2{font-family:var(--sans);font-size:12px;font-weight:650;letter-spacing:.1em;
   text-transform:uppercase;color:var(--muted);border:none;padding:0;margin:30px 0 12px}
 footer .backlinks{text-align:center;margin-top:34px;font-size:14px}
-  </style>
+  
+/* Start-here primer for the non-specialist reader (editorial charter, rule 1) */
+aside.primer{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;
+  padding:18px 22px;margin:8px 0 34px;font-size:15.5px;line-height:1.6;max-width:none}
+aside.primer .primer-title{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 10px;max-width:none}
+aside.primer p{margin:0 0 10px;max-width:72ch}
+aside.primer p:last-child{margin-bottom:0}
+aside.primer em{font-style:italic;color:var(--ink)}
+@media print{aside.primer{background:#fff;border-color:#bbb}}
+</style>
   <script>(function(){try{var t=localStorage.getItem("kb-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 </head>
 <body>
@@ -174,6 +184,12 @@ footer .backlinks{text-align:center;margin-top:34px;font-size:14px}
 
 <h1 id="ai-agents-push-humans-out-of-the-loop-a-critical-reading-note">&quot;AI Agents Push Humans Out of the Loop&quot; — a critical reading note</h1>
 <hr />
+<aside class="primer">
+<p class="primer-title">Start here — if the subject is new to you</p>
+<p>A chatbot answers a question. An <em>AI agent</em> goes further: given a goal, it plans a sequence of steps, uses tools — a browser, a file system, another program — and acts, with little or no human intervention between the steps. Agents are how AI systems are increasingly deployed in companies and administrations.</p>
+<p>The usual safeguard is <em>human oversight</em>: a person checks, approves or can stop the machine. Europe's AI Act makes it a legal requirement for high-risk systems. The paper discussed here, by three researchers, argues that this safeguard wears out precisely where it is most needed — the more an agent does, the less able the supervising human becomes to judge it, through skill loss, automation bias and sheer approval fatigue.</p>
+<p>Why it matters: &quot;a human will check&quot; is the sentence that reassures boards, regulators and users alike. If it is weaker than it sounds, the whole architecture of AI governance rests on a soft spot. This note reads the paper closely, tests its argument, and says where it holds and where it overreaches.</p>
+</aside>
 <h2 id="what-the-paper-says">What the paper says</h2>
 <p>"Human oversight" has become the standard remedy of AI governance
 (the EU AI Act included). Yet, the authors argue, autonomous AI agents

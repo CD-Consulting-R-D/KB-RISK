@@ -84,7 +84,17 @@ footer .backlinks{text-align:center;margin-top:34px;font-size:14px}
   h1,h2,h3,strong{color:#000}h1{border-bottom-color:#000}h2{border-top-color:#999;page-break-after:avoid}a{color:#000}
   code,.scroll,h2#contents + ol,ol.srclist{background:#fff;border-color:#bbb;color:#000}thead th{background:#eee;color:#000}
   .scroll{page-break-inside:avoid;overflow:visible}table{min-width:0;font-size:9pt}td,th{border-bottom-color:#ccc}}
-  </style>
+  
+/* Start-here primer for the non-specialist reader (editorial charter, rule 1) */
+aside.primer{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;
+  padding:18px 22px;margin:8px 0 34px;font-size:15.5px;line-height:1.6;max-width:none}
+aside.primer .primer-title{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 10px;max-width:none}
+aside.primer p{margin:0 0 10px;max-width:72ch}
+aside.primer p:last-child{margin-bottom:0}
+aside.primer em{font-style:italic;color:var(--ink)}
+@media print{aside.primer{background:#fff;border-color:#bbb}}
+</style>
   <script>(function(){try{var t=localStorage.getItem("kb-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 </head>
 <body>
@@ -96,6 +106,12 @@ footer .backlinks{text-align:center;margin-top:34px;font-size:14px}
 <h1>Keeping secrets and code on GitHub: what the last four years of incidents teach a small organisation</h1>
 <p class="standfirst">Where should a small organisation keep its API keys and recovery codes, and what does it risk by trusting a repository with them?</p>
 <p class="meta-line">Review compiled from public sources; all sources consulted on 8 September 2026. Vendor blogs are used to describe incidents they investigated, never for their product claims. Figures are quoted with their source; nothing is estimated.</p>
+<aside class="primer">
+<p class="primer-title">Start here — if the subject is new to you</p>
+<p>Software is written as text files that change every day. A <em>version control system</em> keeps the full history of those changes — who changed what, when and why — so that a team can work on the same code without overwriting each other and can go back to any earlier state. <em>Git</em>, created in 2005, is the version control system almost everyone uses today.</p>
+<p><em>GitHub</em> is the largest online service for hosting Git repositories — a repository being one project's files and their history. It is owned by Microsoft, used by more than a hundred million developers, and hosts both public repositories, readable by anyone, and private ones, readable only by the people the owner authorises. Many websites, including this one, are published directly from a GitHub repository.</p>
+<p>Why it matters: because so much software and so many configuration files pass through GitHub, it is also where passwords, keys and access tokens end up by mistake — and once a file is in a repository's history, deleting it is not enough. This review looks at what has actually gone wrong on the platform since 2022, what GitHub has changed, and where a small organisation should keep its secrets instead.</p>
+</aside>
 <h2 id="contents">Contents</h2>
 <ol>
 <li><a href="#summary">Summary</a></li>
