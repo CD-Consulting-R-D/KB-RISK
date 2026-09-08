@@ -7,26 +7,33 @@
   <title>Technology, Information and AI Risks in the WEF Global Risks Reports, 2020–2026 — CD Consulting R&amp;D</title>
   <meta name="description" content="A seven-edition comparative analysis of the annual summary sections of the World Economic Forum (WEF) Global Risks Reports, 2020-2026, focused on technology, information and AI risks.">
   <style>
-/* Nocturnal edition. The page commits to a dark palette in every context:
-   no light variant, no prefers-color-scheme switch. Tuned for long reading —
-   the ground is a blue-black rather than pure black, and the text a warm
-   off-white rather than #fff, so the contrast reads deep instead of harsh. */
+/* Mixed edition (8 September 2026): light by default, dark when the system asks for it,
+   and a manual switch (remembered in this browser) that overrides the system in both
+   directions. The nocturnal palette below is the one this entry was first published with;
+   the light one is that of the chapter indexes. */
 :root{
-  color-scheme:dark;
-  --bg:#0d1015;          /* page ground, blue-black */
-  --panel:#161b23;       /* tables, contents box, source list */
-  --panel-2:#1a2029;     /* table header band */
-  --quote:#141920;       /* pull quotes */
-  --code:#1b212b;
-  --ink:#dde3ea;         /* body text, warm off-white */
-  --ink-strong:#f2f5f8;  /* headings and <strong> */
-  --muted:#8c96a4;       /* captions, notes */
-  --rule:#242c37;        /* hairlines */
-  --rule-soft:#1c232c;
-  --accent:#82aef0;      /* links, section rules */
+  color-scheme:light dark;
+  --bg:#f7f6f3; --panel:#ffffff; --panel-2:#efede8; --quote:#f1efea; --code:#efede8;
+  --ink:#1a1a1a; --ink-strong:#0e0e0e; --muted:#555c66; --rule:#ddd8cf; --rule-soft:#e8e4dc;
+  --accent:#3d6478; --accent-hover:#274a5c; --sel:#d9e4ec; --hover:#f3f1ec;
+  --scroll:#c9c4ba; --scroll-hover:#b3ada2;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
   --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1015; --panel:#161b23; --panel-2:#1a2029; --quote:#141920; --code:#1b212b;
+    --ink:#dde3ea; --ink-strong:#f2f5f8; --muted:#8c96a4; --rule:#242c37; --rule-soft:#1c232c;
+    --accent:#82aef0; --accent-hover:#a6c8f7; --sel:#2b3d57; --hover:#1a212a;
+    --scroll:#39424f; --scroll-hover:#4a5563;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1015; --panel:#161b23; --panel-2:#1a2029; --quote:#141920; --code:#1b212b;
+  --ink:#dde3ea; --ink-strong:#f2f5f8; --muted:#8c96a4; --rule:#242c37; --rule-soft:#1c232c;
+  --accent:#82aef0; --accent-hover:#a6c8f7; --sel:#2b3d57; --hover:#1a212a;
+  --scroll:#39424f; --scroll-hover:#4a5563;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--bg)}
@@ -34,7 +41,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
   font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility}
 .wrap{max-width:900px;margin:0 auto;padding:56px 24px 104px}
-::selection{background:#2b3d57;color:#f2f5f8}
+::selection{background:var(--sel);color:var(--ink-strong)}
 
 h1{font-family:var(--serif);font-size:clamp(27px,4.4vw,42px);line-height:1.15;
   font-weight:600;letter-spacing:-.015em;margin:0 0 18px;color:var(--ink-strong);
@@ -47,7 +54,7 @@ h3{font-size:18px;font-weight:600;margin:38px 0 10px;letter-spacing:-.005em;
   font-family:var(--serif);color:var(--ink-strong);scroll-margin-top:16px}
 p{margin:0 0 17px;max-width:72ch}
 a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
-a:hover{color:#a6c8f7;text-decoration-thickness:2px}
+a:hover{color:var(--accent-hover);text-decoration-thickness:2px}
 strong{font-weight:650;color:var(--ink-strong)}
 em{font-style:italic}
 hr{border:none;border-top:1px solid var(--rule-soft);margin:46px 0}
@@ -71,7 +78,7 @@ blockquote ul,blockquote ol{margin:0}
 blockquote li{color:var(--ink-strong)}
 
 code{font-family:var(--mono);font-size:.87em;background:var(--code);
-  color:#c9d6e6;padding:2px 6px;border-radius:4px;word-break:break-word;
+  color:var(--ink);padding:2px 6px;border-radius:4px;word-break:break-word;
   border:1px solid var(--rule-soft)}
 pre{background:var(--code);border:1px solid var(--rule);border-radius:9px;
   padding:15px 17px;overflow-x:auto;font-size:13px;line-height:1.55}
@@ -86,7 +93,7 @@ thead th{background:var(--panel-2);color:var(--ink-strong);font-size:11.5px;
   letter-spacing:.06em;text-transform:uppercase;font-weight:650;white-space:nowrap;
   border-bottom:1px solid var(--rule)}
 tbody tr:last-child td{border-bottom:none}
-tbody tr:hover{background:#1a212a}
+tbody tr:hover{background:var(--hover)}
 td code{white-space:nowrap}
 td em{color:var(--muted)}
 
@@ -100,12 +107,12 @@ ol.srclist .s{font-size:13.5px;color:var(--muted)}
 p.srcnote{font-size:13.5px;color:var(--muted);margin-top:15px}
 
 /* Dark scrollbars, so the chrome does not glare against the page */
-*{scrollbar-color:#39424f var(--bg)}
+*{scrollbar-color:var(--scroll) var(--bg)}
 ::-webkit-scrollbar{width:11px;height:11px}
 ::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:#39424f;border-radius:6px;
+::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:6px;
   border:2px solid var(--bg)}
-::-webkit-scrollbar-thumb:hover{background:#4a5563}
+::-webkit-scrollbar-thumb:hover{background:var(--scroll-hover)}
 
 @media (max-width:640px){
   .wrap{padding:34px 16px 68px}
@@ -143,6 +150,11 @@ h1{text-align:center}
   margin:0 0 8px;max-width:none}
 .meta-line{font-family:var(--sans);font-size:13px;color:var(--muted);text-align:center;
   margin-bottom:38px;max-width:none}
+.theme{position:fixed;top:14px;right:14px;font-family:var(--sans);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--panel);color:var(--muted);border:1px solid var(--rule);border-radius:99px;padding:6px 12px;cursor:pointer;z-index:5}
+.theme:hover{color:var(--accent);border-color:var(--accent)}
+@media (max-width:640px){.theme{top:8px;right:8px}}
+@media print{.theme{display:none}}
 footer{margin-top:56px;padding-top:26px;border-top:1px solid var(--rule);
   font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.6}
 footer p{margin-bottom:14px;max-width:none}
@@ -151,8 +163,10 @@ footer h2{font-family:var(--sans);font-size:12px;font-weight:650;letter-spacing:
   text-transform:uppercase;color:var(--muted);border:none;padding:0;margin:30px 0 12px}
 footer .backlinks{text-align:center;margin-top:34px;font-size:14px}
   </style>
+  <script>(function(){try{var t=localStorage.getItem("kb-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 </head>
 <body>
+  <button class="theme" id="theme" type="button" aria-label="Switch between light and dark">Light / Dark</button>
   <main class="wrap">
     <p class="mark">CD Consulting R&amp;D</p>
     <nav class="crumbs"><a href="../index.html">Home</a> · <a href="./">KB-RISK</a> · Entry 1</nav>
@@ -1148,5 +1162,6 @@ reports may be redistributed without its permission.</p>
       <p class="backlinks"><a href="./">← KB-RISK</a> · <a href="../index.html">CD Consulting R&amp;D</a></p>
     </footer>
   </main>
+  <script>(function(){var b=document.getElementById("theme");b.addEventListener("click",function(){var r=document.documentElement;var cur=r.getAttribute("data-theme");var sys=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";var now=(cur||sys)==="dark"?"light":"dark";r.setAttribute("data-theme",now);try{localStorage.setItem("kb-theme",now);}catch(e){}});})();</script>
 </body>
 </html>
