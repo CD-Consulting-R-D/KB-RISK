@@ -3,7 +3,7 @@
 Chapitre **KB-RISK** — Risk knowledge base — de la Knowledge Base **CD Consulting R&D**
 (organisation GitHub [CD-Consulting-R-D](https://github.com/CD-Consulting-R-D)).
 
-**Statut : créé le 08/09/2026 ; deux entrées migrées depuis le dossier `KB-RISK/` du dépôt racine le même jour (BKL-CDC-003, BKL-CDC-004) : `4f2a.html` (analyse WEF 2020-2026) + `9c1e.html` (synthèse), `7b3d.html` (note de lecture Mitchell, Ghosh, Passi).** Chapitre : risque (technologie, information, IA).
+**Statut : créé le 08/09/2026 ; deux entrées migrées depuis le dossier `KB-RISK/` du dépôt racine le même jour (BKL-CDC-003, BKL-CDC-004) : `4f2a.html` (analyse WEF 2020-2026) + `9c1e.html` (synthèse), `7b3d.html` (note de lecture Mitchell, Ghosh, Passi) ; troisième entrée publiée le 08/09/2026 : `e6a4.html` (revue « Keeping secrets and code on GitHub », gabarit mixte clair/sombre).** Chapitre : risque (technologie, information, IA).
 
 ## Rôle
 
