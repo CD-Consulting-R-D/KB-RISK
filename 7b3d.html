@@ -172,6 +172,25 @@ aside.primer p{margin:0 0 10px;max-width:72ch}
 aside.primer p:last-child{margin-bottom:0}
 aside.primer em{font-style:italic;color:var(--ink)}
 @media print{aside.primer{background:#fff;border-color:#bbb}}
+.enjeu{font-family:var(--serif);font-size:15px;font-style:italic;color:var(--accent);text-align:center;margin:0 0 8px}
+
+/* ================================================================
+   BKL-CDC-016-A — bloc de jetons de rubrique KB-RISK (PROTOTYPE, non publie).
+   C'est exactement ce que le generateur ecrirait : trois declarations de
+   variables, plus deux regles de motif. Le reste de la feuille est intact.
+   ================================================================ */
+:root{--accent:#8c2f22;--accent-hover:#6d2419;--kb-c:#8c2f22;
+  --kb-forme:none;--kb-fond:var(--kb-c);--kb-bord:0;--kb-rayon:0;
+  --kb-filet:repeating-linear-gradient(90deg,var(--kb-c) 0 7px,transparent 7px 11px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --accent:#e0907f;--accent-hover:#eeb0a3;--kb-c:#e0907f}}
+:root[data-theme="dark"]{--accent:#e0907f;--accent-hover:#eeb0a3;--kb-c:#e0907f}
+h1{border-bottom-color:transparent;position:relative}
+h1::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-2px;
+  width:170px;height:4px;background:var(--kb-filet)}
+.mark::before{content:"";display:inline-block;box-sizing:border-box;width:10px;height:10px;
+  vertical-align:1px;margin-right:11px;background:var(--kb-fond);clip-path:var(--kb-forme);
+  border:var(--kb-bord);border-radius:var(--kb-rayon)}
 </style>
   <script>(function(){try{var t=localStorage.getItem("kb-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 </head>
@@ -183,6 +202,7 @@ aside.primer em{font-style:italic;color:var(--ink)}
     <p class="cartouche">CD Consulting R&amp;D · KB-RISK · entry 2 · reading note · 7 September 2026 · published 7 September 2026</p>
 
 <h1 id="ai-agents-push-humans-out-of-the-loop-a-critical-reading-note">&quot;AI Agents Push Humans Out of the Loop&quot; — a critical reading note</h1>
+<p class="enjeu">If "a human will check" is your safeguard, the authors explain why it wears out.</p>
 <hr />
 <aside class="primer">
 <p class="primer-title">Start here — if the subject is new to you</p>

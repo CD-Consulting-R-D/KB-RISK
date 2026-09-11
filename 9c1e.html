@@ -119,16 +119,25 @@ footer ol.srclist li{margin-bottom:0.5rem;word-break:break-all}
   .timeline li{grid-template-columns:42px 1fr;gap:0.6rem}
 }
 @media (prefers-color-scheme: dark){
-  :root{
+  :root:not([data-theme="light"]){
     --bg:#12151a; --panel:#181c23; --ink:#eceef1; --muted:#a8adb6; --rule:#2a3038;
     --accent:#8fb3c4; --accent-soft:#1d222a;
     --ai:#d9a35e; --ai-soft:#241d13;
     --tech:#8fb3c4; --warn:#c98776;
   }
-  .mark,h2,a,footer h2{color:#8fb3c4}
-  nav.crumbs,.cartouche,.meta,footer,.eyebrow{color:#767c86}
-  nav.crumbs a{color:#8fb3c4}
+  :root:not([data-theme="light"]) .mark,:root:not([data-theme="light"]) h2,:root:not([data-theme="light"]) a,:root:not([data-theme="light"]) footer h2{color:#8fb3c4}
+  :root:not([data-theme="light"]) nav.crumbs,:root:not([data-theme="light"]) .cartouche,:root:not([data-theme="light"]) .meta,:root:not([data-theme="light"]) footer,:root:not([data-theme="light"]) .eyebrow{color:#767c86}
+  :root:not([data-theme="light"]) nav.crumbs a{color:#8fb3c4}
 }
+:root[data-theme="dark"]{
+  --bg:#12151a; --panel:#181c23; --ink:#eceef1; --muted:#a8adb6; --rule:#2a3038;
+  --accent:#8fb3c4; --accent-soft:#1d222a;
+  --ai:#d9a35e; --ai-soft:#241d13;
+  --tech:#8fb3c4; --warn:#c98776;
+}
+:root[data-theme="dark"] .mark,:root[data-theme="dark"] h2,:root[data-theme="dark"] a,:root[data-theme="dark"] footer h2{color:#8fb3c4}
+:root[data-theme="dark"] nav.crumbs,:root[data-theme="dark"] .cartouche,:root[data-theme="dark"] .meta,:root[data-theme="dark"] footer,:root[data-theme="dark"] .eyebrow{color:#767c86}
+:root[data-theme="dark"] nav.crumbs a{color:#8fb3c4}
 
 /* Start-here primer for the non-specialist reader (editorial charter, rule 1) */
 aside.primer{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;
@@ -139,9 +148,36 @@ aside.primer p{margin:0 0 10px;max-width:72ch}
 aside.primer p:last-child{margin-bottom:0}
 aside.primer em{font-style:italic;color:var(--ink)}
 @media print{aside.primer{background:#fff;border-color:#bbb}}
+.theme{position:fixed;top:14px;right:14px;font-family:var(--sans);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--panel);color:var(--muted);border:1px solid var(--rule);border-radius:99px;padding:6px 12px;cursor:pointer;z-index:5}
+.theme:hover{color:var(--accent);border-color:var(--accent)}
+@media (max-width:640px){.theme{top:8px;right:8px}}
+@media print{.theme{display:none}}
+.meta-line{font-family:var(--sans);font-size:13px;color:var(--muted);text-align:center;margin-bottom:38px;max-width:none}
+.enjeu{font-family:var(--serif);font-size:15px;font-style:italic;color:var(--accent);text-align:center;margin:0 0 8px}
+
+/* ================================================================
+   BKL-CDC-016-A — bloc de jetons de rubrique KB-RISK (PROTOTYPE, non publie).
+   C'est exactement ce que le generateur ecrirait : trois declarations de
+   variables, plus deux regles de motif. Le reste de la feuille est intact.
+   ================================================================ */
+:root{--accent:#8c2f22;--accent-hover:#6d2419;--kb-c:#8c2f22;
+  --kb-forme:none;--kb-fond:var(--kb-c);--kb-bord:0;--kb-rayon:0;
+  --kb-filet:repeating-linear-gradient(90deg,var(--kb-c) 0 7px,transparent 7px 11px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --accent:#e0907f;--accent-hover:#eeb0a3;--kb-c:#e0907f}}
+:root[data-theme="dark"]{--accent:#e0907f;--accent-hover:#eeb0a3;--kb-c:#e0907f}
+h1{border-bottom-color:transparent;position:relative}
+h1::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-2px;
+  width:170px;height:4px;background:var(--kb-filet)}
+.mark::before{content:"";display:inline-block;box-sizing:border-box;width:10px;height:10px;
+  vertical-align:1px;margin-right:11px;background:var(--kb-fond);clip-path:var(--kb-forme);
+  border:var(--kb-bord);border-radius:var(--kb-rayon)}
 </style>
+<script>(function(){try{var t=localStorage.getItem("kb-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 </head>
 <body>
+<button class="theme" id="theme" type="button" aria-label="Switch between light and dark">Light / Dark</button>
 <div class="wrap">
 <p class="mark">CD Consulting R&amp;D</p>
 <nav class="crumbs"><a href="../index.html">Home</a> · <a href="./">KB-RISK</a> · Entry 1 · Synthesis</nav>
@@ -153,6 +189,8 @@ aside.primer em{font-style:italic;color:var(--ink)}
   <p class="standfirst">How the World Economic Forum's expert panel came to rank artificial
   intelligence among the five most severe global risks of the next decade — while still placing
   it thirtieth over the next two years.</p>
+  <p class="enjeu">If the full analysis is more than you need, this shorter illustrated version carries the same figures.</p>
+  <p class="meta-line">Illustrated companion to the WEF Global Risks analysis (4f2a) · figures identical to the main entry</p>
   <p class="meta">
     Source: WEF Global Risks Reports 2020, 2021, 2022, 2023, 2024, 2025, 2026 — annual summary
     sections<br>
@@ -521,5 +559,6 @@ nuclear weapons command, control, and communications."</p>
 </footer>
 
 </div>
+<script>(function(){var b=document.getElementById("theme");b.addEventListener("click",function(){var r=document.documentElement;var cur=r.getAttribute("data-theme");var sys=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";var now=(cur||sys)==="dark"?"light":"dark";r.setAttribute("data-theme",now);try{localStorage.setItem("kb-theme",now);}catch(e){}});})();</script>
 </body>
 </html>
