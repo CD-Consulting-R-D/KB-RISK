@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vingt et un risques de la collaboration avec des agents IA : un registre de terrain, et le cas du prompt pré-rempli — CD Consulting R&amp;D</title>
+  <meta name="description" content="Version française : une squad à un humain et plusieurs agents a consigné vingt et un risques en deux mois de sessions IA gouvernées. Quatre des six risques graves touchent le registre des décisions, pas le code. La note détaille le prompt suggéré par l&#x27;outil, ses cinq occurrences, ses contrôles, et ouvre une piste sur ChatGPT, Microsoft 365 Copilot et Gemini.">
+  <style>
+/* Mixed edition: light by default, dark when the system asks for it, and a manual switch
+   (remembered in this browser) that overrides the system in both directions. The two
+   palettes are those already used in this Knowledge Base: the light one of the chapter
+   indexes, the nocturnal one of entry 1. */
+:root{
+  color-scheme:light dark;
+  --bg:#f7f6f3; --panel:#ffffff; --panel-2:#efede8; --quote:#f1efea; --code:#efede8;
+  --ink:#1a1a1a; --ink-strong:#0e0e0e; --muted:#555c66; --rule:#ddd8cf; --rule-soft:#e8e4dc;
+  --accent:#3d6478; --accent-hover:#274a5c; --sel:#d9e4ec; --hover:#f3f1ec; --scroll:#c9c4ba;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1015; --panel:#161b23; --panel-2:#1a2029; --quote:#141920; --code:#1b212b;
+    --ink:#dde3ea; --ink-strong:#f2f5f8; --muted:#8c96a4; --rule:#242c37; --rule-soft:#1c232c;
+    --accent:#82aef0; --accent-hover:#a6c8f7; --sel:#2b3d57; --hover:#1a212a; --scroll:#39424f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1015; --panel:#161b23; --panel-2:#1a2029; --quote:#141920; --code:#1b212b;
+  --ink:#dde3ea; --ink-strong:#f2f5f8; --muted:#8c96a4; --rule:#242c37; --rule-soft:#1c232c;
+  --accent:#82aef0; --accent-hover:#a6c8f7; --sel:#2b3d57; --hover:#1a212a; --scroll:#39424f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:900px;margin:0 auto;padding:56px 24px 104px}
+::selection{background:var(--sel);color:var(--ink-strong)}
+h1{font-family:var(--serif);font-size:clamp(27px,4.4vw,42px);line-height:1.15;font-weight:600;letter-spacing:-.015em;
+  margin:0 0 18px;color:var(--ink-strong);padding-bottom:22px;border-bottom:2px solid var(--accent);text-align:center}
+h2{font-family:var(--serif);font-size:25px;font-weight:600;letter-spacing:-.01em;color:var(--ink-strong);
+  margin:60px 0 14px;padding-top:26px;border-top:1px solid var(--rule);scroll-margin-top:16px}
+h2#contents{border-top:none;padding-top:0;margin-top:42px}
+h3{font-size:18px;font-weight:600;margin:38px 0 10px;letter-spacing:-.005em;font-family:var(--serif);color:var(--ink-strong);scroll-margin-top:16px}
+p{margin:0 0 17px;max-width:72ch}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--accent-hover);text-decoration-thickness:2px}
+a.ref{font-family:var(--sans);font-size:.82em;text-decoration:none;white-space:nowrap}
+strong{font-weight:650;color:var(--ink-strong)}
+ul,ol{max-width:72ch;padding-left:24px;margin:0 0 19px}
+li{margin-bottom:10px}
+li::marker{color:var(--muted)}
+h2#contents + ol{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:22px 22px 22px 46px;max-width:none;font-size:15px}
+h2#contents + ol li{margin-bottom:8px}
+h2#contents + ol li::marker{color:var(--accent)}
+code{font-family:var(--mono);font-size:.87em;background:var(--code);color:var(--ink);padding:2px 6px;border-radius:4px;word-break:break-word;border:1px solid var(--rule-soft)}
+.scroll{overflow-x:auto;margin:26px 0 30px;border:1px solid var(--rule);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--rule-soft);vertical-align:top;line-height:1.55}
+thead th{background:var(--panel-2);color:var(--ink-strong);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:650;border-bottom:1px solid var(--rule)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--hover)}
+ol.srclist{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:22px 24px 22px 24px;max-width:none;list-style:none}
+ol.srclist li{margin-bottom:15px;line-height:1.55;font-size:14px;padding-left:52px;position:relative}
+ol.srclist li:last-child{margin-bottom:0}
+ol.srclist li .tag{position:absolute;left:0;top:2px;font-family:var(--mono);font-size:12px;color:var(--accent);border:1px solid var(--rule);border-radius:4px;padding:1px 5px}
+ol.srclist a{font-family:var(--mono);font-size:12.5px;word-break:break-all}
+*{scrollbar-color:var(--scroll) var(--bg)}
+.mark{font-family:var(--sans);font-size:12.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:22px;text-align:center}
+nav.crumbs{font-family:var(--sans);font-size:12.5px;text-align:center;color:var(--muted);margin-bottom:26px}
+nav.crumbs a{color:var(--accent)}
+.cartouche{font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:34px;padding-bottom:24px;border-bottom:1px solid var(--rule-soft)}
+.standfirst{font-family:var(--serif);font-size:16px;color:var(--muted);text-align:center;margin:0 0 8px;max-width:none}
+.meta-line{font-family:var(--sans);font-size:13px;color:var(--muted);text-align:center;margin-bottom:38px;max-width:none}
+.theme{position:fixed;top:14px;right:14px;font-family:var(--sans);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--panel);color:var(--muted);border:1px solid var(--rule);border-radius:99px;padding:6px 12px;cursor:pointer}
+.theme:hover{color:var(--accent);border-color:var(--accent)}
+footer{margin-top:56px;padding-top:26px;border-top:1px solid var(--rule);font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.6}
+footer p{margin-bottom:14px;max-width:none}
+footer .backlinks{text-align:center;margin-top:34px;font-size:14px}
+@media (max-width:640px){.wrap{padding:34px 16px 68px}body{font-size:16px}h2#contents + ol{padding-left:38px}.theme{top:8px;right:8px}}
+@media print{html,body{background:#fff;color:#000;font-size:11pt}.wrap{max-width:none;padding:0}.theme{display:none}
+  h1,h2,h3,strong{color:#000}h1{border-bottom-color:#000}h2{border-top-color:#999;page-break-after:avoid}a{color:#000}
+  code,.scroll,h2#contents + ol,ol.srclist{background:#fff;border-color:#bbb;color:#000}thead th{background:#eee;color:#000}
+  .scroll{page-break-inside:avoid;overflow:visible}table{min-width:0;font-size:9pt}td,th{border-bottom-color:#ccc}}
+  
+/* Start-here primer for the non-specialist reader (editorial charter, rule 1) */
+aside.primer{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;
+  padding:18px 22px;margin:8px 0 34px;font-size:15.5px;line-height:1.6;max-width:none}
+aside.primer .primer-title{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 10px;max-width:none}
+aside.primer p{margin:0 0 10px;max-width:72ch}
+aside.primer p:last-child{margin-bottom:0}
+aside.primer em{font-style:italic;color:var(--ink)}
+@media print{aside.primer{background:#fff;border-color:#bbb}}
+.enjeu{font-family:var(--serif);font-size:15px;font-style:italic;color:var(--accent);text-align:center;margin:0 0 8px}
+
+:root{--accent:#8c2f22;--accent-hover:#6d2419;--kb-c:#8c2f22;
+  --kb-forme:none;--kb-fond:var(--kb-c);--kb-bord:0;--kb-rayon:0;
+  --kb-filet:repeating-linear-gradient(90deg,var(--kb-c) 0 7px,transparent 7px 11px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --accent:#e0907f;--accent-hover:#eeb0a3;--kb-c:#e0907f}}
+:root[data-theme="dark"]{--accent:#e0907f;--accent-hover:#eeb0a3;--kb-c:#e0907f}
+h1{border-bottom-color:transparent;position:relative}
+h1::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-2px;
+  width:170px;height:4px;background:var(--kb-filet)}
+.mark::before{content:"";display:inline-block;box-sizing:border-box;width:10px;height:10px;
+  vertical-align:1px;margin-right:11px;background:var(--kb-fond);clip-path:var(--kb-forme);
+  border:var(--kb-bord);border-radius:var(--kb-rayon)}
+  </style>
+  <script>(function(){try{var t=localStorage.getItem("kb-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
+</head>
+<body>
+  <button class="theme" id="theme" type="button" aria-label="Switch between light and dark">Light / Dark</button>
+  <main class="wrap">
+    <p class="mark">CD Consulting R&amp;D</p>
+    <nav class="crumbs" lang="en"><a href="../index.html">Home</a> · <a href="./">KB-RISK</a> · Entry 4</nav>
+    <p class="cartouche" lang="en">KB-RISK · Entry 4 · Published 2026-09-15 · Version 1</p>
+<h1>Vingt et un risques de la collaboration avec des agents IA : un registre de terrain, et le cas du prompt pré-rempli</h1>
+<p class="standfirst" lang="en">Après deux mois de sessions IA de développement sous une gouvernance écrite, une squad à un humain a consigné vingt et un risques distincts. La plupart ne concernent pas le code : ils concernent la mémoire des décisions. L'un d'eux, le prompt suggéré par l'outil lui-même, mérite un examen serré.</p>
+<p class="enjeu" lang="en">If you let an AI assistant act on your instructions, know that the next instruction in your input box may not be yours.</p>
+<p class="meta-line" lang="en">Note de travail · environ 3 900 mots · lecture ≈ 17 minutes · sources : documentation des éditeurs et forums communautaires, lus le 15 septembre 2026 · version française de l'entrée 4</p>
+<aside class="primer" lang="en">
+<p class="primer-title">Start here — if the subject is new to you</p>
+<p>An <em>AI coding assistant</em> is a program in which a large language model reads and writes files on a computer, runs commands and edits code, under the instructions a person types in a chat window. Several such windows can run at the same time, each with its own task and its own permissions. Every instruction typed in a window is, for the model, an order from the person in front of it.</p>
+<p>A <em>risk register</em> is the classic tool of risk management: a table where each risk has a name, a severity, a probability, the incidents already observed, and the controls that prevent or detect it. Here the register was kept by the AI sessions themselves, under audit, for a squad made of one human and several models.</p>
+<p>Why it matters: most discussions of AI risk concern what the model might do. Two months of daily use show that the failures that matter most are about who decided what, and whether the written record says so truthfully. One of them comes from a convenience feature every assistant now offers: the tool suggests your next message before you type it.</p>
+</aside>
+<h2 id="contents" lang="en">Contents</h2>
+<ol>
+<li><a href="#1-d-o-cela-vient">1. D'où cela vient</a></li>
+<li><a href="#2-le-registre-d-un-coup-d-il">2. Le registre d'un coup d'œil</a></li>
+<li><a href="#3-ce-que-le-registre-enseigne">3. Ce que le registre enseigne</a></li>
+<li><a href="#4-r-009-en-d-tail-le-prompt-pr-rempli">4. R-009 en détail : le prompt pré-rempli</a></li>
+<li><a href="#5-une-piste-de-recherche-comment-font-les-autres-assistants">5. Une piste de recherche : comment font les autres assistants</a></li>
+<li><a href="#6-retenir-pour-les-praticiens">6. À retenir pour les praticiens</a></li>
+<li><a href="#7-sources">7. Sources</a></li>
+</ol>
+
+<h2 id="1-d-o-cela-vient">1. D'où cela vient</h2>
+<p><em>Read this note in English: <a href="a9d2.html">English version</a>.</em></p>
+<p>Le cadre est volontairement petit : un décideur humain unique (appelé <em>le propriétaire</em> ci-dessous) et une poignée de sessions IA dans un assistant de développement de bureau (Claude Code, avec des modèles Claude de plusieurs tailles : Fable, Opus, Sonnet, Haiku). Les sessions écrivent du code, de la documentation, des analyses et des pièces de gouvernance. Ce qui rend le cadre inhabituel, c'est la discipline qui l'entoure :</p>
+<ul><li><strong>Une charte de douze règles</strong> lie chaque session : aucun geste engageant sans mandat explicite ; un fichier n'a qu'un rédacteur ; tout horodatage se lit à l'instrument, jamais ne s'estime ; une décision ne compte que si le propriétaire tape une formule de <em>gate</em> explicite (typiquement <code>go &lt;verbe&gt; &lt;objet&gt;</code>) dans la fenêtre même de la session ; une demande ambiguë déclenche une question, une à la fois, jamais un choix silencieux.</li><li><strong>Les registres écrits sont la mémoire.</strong> Un backlog, un journal des changements, un registre des risques et un registre des audits sont le seul état qui fait foi. La fenêtre d'une session est jetable ; les registres ne le sont pas. Tout commit qui consigne une décision porte un préfixe fixe, pour que la piste des décisions s'audite mécaniquement depuis l'historique de version.</li><li><strong>Une session superviseur</strong> (à longue durée de vie, elle-même bornée par des règles sur le compactage de contexte) rédige les mandats, audite les exécutions sur transcript et tient les registres. Elle n'a aucun pouvoir de décision : elle mesure, cadre, et écrit ce que le propriétaire a gaté.</li></ul>
+<p>Le registre des risques a été créé le 14 juillet 2026, après un incident de gouvernance, et comptait vingt et une entrées le 15 septembre 2026. Chaque entrée porte une gravité (Faible / Moyenne / Élevée), une probabilité <em>avec les contrôles actifs en place</em>, les occurrences documentées, les contrôles préventifs, les contrôles de détection et un statut. Un risque ne se clôt que sur gate du propriétaire.</p>
+
+<h2 id="2-le-registre-d-un-coup-d-il">2. Le registre d'un coup d'œil</h2>
+<p>Les vingt et une entrées se répartissent en sept familles. La formulation en une ligne est une paraphrase ; gravité et probabilité sont celles du registre au 15 septembre 2026.</p>
+<div class="scroll"><table><thead><tr><th>Famille</th><th>ID</th><th>Risque (une ligne)</th><th>Gravité / Prob.</th><th>Contrôle principal</th><th>Statut</th></tr></thead><tbody>
+<tr><td><strong>A. Intégrité des décisions</strong></td><td>R-001</td><td>Consignation d'une décision jamais prononcée (l'agent lit une direction comme un gate et écrit « décidé »)</td><td>Élevée / Moyenne</td><td>Règle 9 : un gate est une formule explicite ; préfixe de commit audité depuis l'historique</td><td>Actif</td></tr>
+<tr><td></td><td>R-009</td><td><strong>Pseudo-gate par prompt pré-rempli</strong>, suggéré par l'interface et envoyé par mégarde</td><td>Élevée / Faible-Moyenne</td><td>Écho-confirmation de tout gate anormal ; les formules portent leur borne</td><td>Actif, 5 occurrences</td></tr>
+<tr><td></td><td>R-010</td><td>Blanchiment de gate par relais : une session traite une autorité <em>rapportée</em> comme un gate</td><td>Élevée / Faible</td><td>Un gate ne se prend jamais de seconde main ; un gate rapporté s'écho-confirme</td><td>Actif</td></tr>
+<tr><td></td><td>R-013</td><td>Arbitrage autonome d'une demande ambiguë (l'agent choisit une voie coûteuse ou déviante au lieu de demander)</td><td>Élevée / Moyenne</td><td>Règle 12 : élicitation, une question à la fois ; bornes avant coût</td><td>Partiel</td></tr>
+<tr><td><strong>B. Vérité et mémoire</strong></td><td>R-003</td><td>Hallucination temporelle : une date ou une heure estimée contamine les journaux</td><td>Élevée / Faible</td><td>Horodatage instrumental seul</td><td>Maîtrisé</td></tr>
+<tr><td></td><td>R-004</td><td>Fausse prémisse entraînant une initiative non demandée</td><td>Élevée / Faible-Moyenne</td><td>Mandat explicite ; diagnostic situé</td><td>Actif</td></tr>
+<tr><td></td><td>R-015</td><td>Dérive cognitive d'une session à longue durée de vie au fil des compactages</td><td>Moyenne / Certaine sur la durée</td><td>Plafond de deux compactages par cycle ; doctrine registre-d'abord ; restitution su / déduit / perdu à chaque reprise</td><td>Ouvert, observé 51 jours</td></tr>
+<tr><td></td><td>R-020</td><td>Un dérivé recopié diverge en silence de sa source</td><td>Moyenne / Élevée</td><td>Les dérivés ne sont jamais maîtres ; détecteurs de dérive scriptés</td><td>Ouvert</td></tr>
+<tr><td><strong>C. Concurrence et cycle de vie</strong></td><td>R-002</td><td>Écritures concurrentes de plusieurs sessions sur un artefact partagé (perte, résurrection, attribution faussée)</td><td>Moyenne / Moyenne</td><td>Un fichier, un rédacteur ; commits par chemin ; contrôle de volume avant commit</td><td>Renforcé</td></tr>
+<tr><td></td><td>R-011</td><td>Fenêtre « zombie » survivant à son mandat, permissions d'écriture vivantes</td><td>Élevée / Moyenne</td><td>Gabarit de clôture : dessaisissement déclaré, autorisations éteintes</td><td>Actif</td></tr>
+<tr><td><strong>D. Comportement des modèles et des plateformes</strong></td><td>R-007</td><td>Variance de capacités entre modèles : un garde-fou fondé sur le jugement d'un modèle ne tient pas pour un autre</td><td>Moyenne / Élevée</td><td>Règles bright-line applicables par tout modèle ; gates dans le processus, pas dans le jugement</td><td>Doctrine</td></tr>
+<tr><td></td><td>R-012</td><td>Substitution silencieuse du modèle en cours de session (repli de sûreté côté fournisseur), invisible de l'intérieur</td><td>Moyenne / Moyenne</td><td>Confirmation croisée à l'entrée ; le transcript est le seul instrument de calibre</td><td>Actif</td></tr>
+<tr><td><strong>E. Automatisation et permissions</strong></td><td>R-005</td><td>Gel silencieux d'une routine planifiée en attente d'une permission</td><td>Moyenne / Moyenne</td><td>Allowlist durcie ; commandes canoniques ; règle de réarmement</td><td>Partiel</td></tr>
+<tr><td></td><td>R-014</td><td>Autorisation non persistante sur les routines (« toujours autoriser » meurt avec la session)</td><td>Moyenne / Moyenne</td><td>Étape de copie sortie de la couche applicative vers une tâche native de l'OS</td><td>Actif sur la copie, partiel sur la génération</td></tr>
+<tr><td></td><td>R-016</td><td>Surface de permissions non minimale (politique mêlée à un journal auto-alimenté d'approbations)</td><td>Élevée / Moyenne</td><td>Retraits par lots testés sur runs réels ; inertie des réglages prouvée par empreinte</td><td>Ouvert</td></tr>
+<tr><td><strong>F. Tiers et argent</strong></td><td>R-006</td><td>Dépendance à un tiers hors contrôle (registrar, autorité de certification, hébergeur)</td><td>Moyenne / Élevée</td><td>Architecture portable ; diagnostic multi-résolveurs</td><td>En cours</td></tr>
+<tr><td></td><td>R-017</td><td>Dépense engagée par une requête entrante non bornée</td><td>Élevée / Moyenne</td><td>Plafond de dépense en console du fournisseur ; validation d'entrée ; pot de miel</td><td>Ouvert, mitigé</td></tr>
+<tr><td></td><td>R-018</td><td>Coupure de service par épuisement d'un quota de plateforme</td><td>Élevée / Faible</td><td>Offres payantes souscrites ; pas de recharge automatique (mode de défaillance choisi)</td><td>Ouvert</td></tr>
+<tr><td></td><td>R-021</td><td>Coût de sortie d'une dépendance de plateforme, installé par l'architecture</td><td>Moyenne / Élevée</td><td>Adaptateurs d'une fonction ; registre des coûts de sortie</td><td>Ouvert</td></tr>
+<tr><td><strong>G. Instruments qui cessent d'instrumenter</strong></td><td>R-019</td><td>Un contrôle maintenu au rouge après changement de son attendu</td><td>Moyenne / Élevée</td><td>Amender le contrôle dans le même geste que le changement</td><td>Clos</td></tr>
+<tr><td></td><td>R-008</td><td>Artefacts de test dans des files asynchrones invisibles, resurgissant des jours plus tard</td><td>Moyenne / Moyenne</td><td>Horodatage de génération dans tout message produit ; marqueur <code>[TEST]</code></td><td>Actif</td></tr>
+</tbody></table></div>
+
+<h2 id="3-ce-que-le-registre-enseigne">3. Ce que le registre enseigne</h2>
+<p>Cinq leçons transversales ressortent de deux mois d'entrées.</p>
+<ol><li><strong>Ce qui est d'abord en risque, c'est le registre, pas les fichiers.</strong> Quatre des six risques « Élevée » (R-001, R-009, R-010, R-013) décrivent la même défaillance sous des angles différents : une décision apparaît au registre que l'humain n'a jamais prise, ou qu'une mauvaise main a prise. Le code se rembobine ; une fausse mémoire de gouvernance se propage.</li><li><strong>Les lignes claires battent le jugement.</strong> Un garde-fou qui repose sur la lecture fine du contexte par un modèle tient pour un modèle et échoue pour un autre (R-007). Les règles qui ont survécu sont celles qu'un script pourrait vérifier : l'horodatage est-il instrumental, le commit ne touche-t-il que les chemins déclarés, la formule de gate a-t-elle été tapée par le propriétaire dans cette fenêtre, la question figure-t-elle au transcript.</li><li><strong>Ne rien déclarer, tout mesurer.</strong> Une session ne voit pas sa propre substitution de modèle (R-012), ne voit pas ce qu'elle a oublié après un compactage (R-015), et estimera une heure avec assurance (R-003). Le transcript, l'historique de version et l'horloge sont les instruments ; l'auto-déclaration est un point de départ pour la vérification, jamais une preuve.</li><li><strong>L'automatisation multiplie la surface de permissions.</strong> Les routines planifiées qui gèlent sur un dialogue de permission (R-005, R-014) et les allowlists qui grossissent comme des journaux d'approbations passées (R-016) montrent la même chose : chaque droit se justifie isolément, la somme crée l'exposition.</li><li><strong>L'argent est le seul dommage qu'un correctif ne répare pas.</strong> R-017, R-018 et R-021 ont tous été levés avant toute perte, sur lecture de documentation, et chacun a reçu une borne dure choisie à l'avance (un plafond de dépense, une recharge refusée, un adaptateur) plutôt qu'une vigilance.</li></ol>
+
+<h2 id="4-r-009-en-d-tail-le-prompt-pr-rempli">4. R-009 en détail : le prompt pré-rempli</h2>
+
+<h3 id="4-1-le-m-canisme-tel-que-document">4.1 Le mécanisme, tel que documenté</h3>
+<p>L'assistant de développement utilisé par la squad affiche, après chacune de ses réponses, une suggestion grisée de ce que l'utilisateur pourrait taper ensuite. La documentation de l'éditeur (référence du mode interactif, lue le 15 septembre 2026) le dit sans détour :</p>
+<p>&gt; « After Claude responds, Claude Code can suggest your next prompt based on your conversation history, such as a follow-up step from a multi-part request or a natural continuation of your workflow. »</p>
+<p>&gt; « Press <code>Tab</code> or <code>Right arrow</code> to place the suggestion in the prompt input, then <code>Enter</code> to submit. Start typing to dismiss it. »</p>
+<p>&gt; « Claude Code generates each of these next-prompt suggestions with a background request that reuses the conversation's prompt cache, so the additional cost is minimal. »</p>
+<p>Trois propriétés en découlent, dont deux mesurées par la squad :</p>
+<ul><li>Le texte est produit par un <strong>appel de modèle séparé, en arrière-plan</strong>, nourri de la conversation jusque-là. Il n'est pas écrit par la session à laquelle l'utilisateur parle, et cette session n'en sait rien.</li><li>Une suggestion non envoyée <strong>ne laisse aucune trace au transcript</strong>. La squad l'a vérifié à la cinquième occurrence : la formule suggérée n'apparaissait nulle part dans le journal de la session avant que le propriétaire ne la cite dans un message.</li><li>Une suggestion envoyée est <strong>indiscernable d'un texte tapé</strong>. Une fois Entrée pressée, la session la reçoit comme les mots de l'utilisateur.</li></ul>
+<p>La fonctionnalité est active dans une session standard. La documentation donne trois façons de la couper : un interrupteur dans le panneau <code>/config</code>, le réglage <code>promptSuggestionEnabled: false</code> dans un fichier de réglages, ou la variable d'environnement <code>CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION=false</code>, qui prime et peut être imposée à toute une organisation par les réglages gérés.</p>
+<h3 id="4-2-pourquoi-c-est-un-risque-de-gouvernance-et-non-un-d-sagr-ment-d-ergonomie">4.2 Pourquoi c'est un risque de gouvernance et non un désagrément d'ergonomie</h3>
+<p>Dans cette squad, une décision est une formule courte tapée par le propriétaire : <code>go push</code>, <code>go T2</code>, <code>go commit journal</code>. Le générateur de suggestions a lu des centaines de ces formules dans l'historique. Il produit donc du texte exactement de cette forme. Deux touches (Tab, Entrée) transforment une supposition de machine en décision humaine que la session exécutera et, pire, <strong>consignera comme gate au journal des changements</strong>.</p>
+<p>Le registre est explicite : l'exécution est le moindre danger, les sessions travaillant sous des mandats écrits qui bornent ce qu'elles peuvent toucher. Le plus grand danger est le <strong>gate fictif</strong> : une entrée au registre des décisions attribuant au propriétaire une instruction qu'il n'a jamais conçue. C'est le même dommage que R-001 (sur-inférence du modèle), la cause étant déplacée du modèle vers l'interface.</p>
+<h3 id="4-3-les-cinq-occurrences">4.3 Les cinq occurrences</h3>
+<div class="scroll"><table><thead><tr><th>#</th><th>Date (2026)</th><th>Texte suggéré (verbatim)</th><th>Ce qui le rendait dangereux</th><th>Issue</th></tr></thead><tbody>
+<tr><td>1</td><td>18 juillet</td><td>« go, lance aussi Sonnet 054 et 055 »</td><td>Un ordre de lancement en forme de gate, jamais discuté</td><td>Repéré par le propriétaire, non envoyé</td></tr>
+<tr><td>2</td><td>19 juillet</td><td>« Opus soumet son plan d'ensemble, go pour O4 »</td><td>Un gate <em>anticipé</em> et visant la mauvaise fenêtre</td><td>Intercepté ; R-009 créé le jour même</td></tr>
+<tr><td>3</td><td>26 juillet</td><td>« supprime la branche analyse-blade-runner » (après une fusion)</td><td>Une <strong>action destructrice</strong> pré-rédigée par l'outil</td><td>Non envoyé ; le propriétaire a d'abord demandé l'avis du superviseur</td></tr>
+<tr><td>4</td><td>27 juillet, 12h15</td><td>« gate AH : compact memory now » (un <strong>test</strong> non annoncé, tapé par le propriétaire)</td><td>Gate anormal : langue étrangère, objet jamais discuté, triplement ambigu</td><td>Le superviseur a exécuté sans écho-confirmation et a été interrompu au premier appel d'outil : le contrôle avait failli côté agent</td></tr>
+<tr><td>5</td><td>15 septembre, avant 06h56</td><td>« go vidange _scratch »</td><td>Le générateur a condensé un item de todo list qui disait « vidange du dossier de travail, <strong>hors pièces sensibles</strong> » et a perdu l'exclusion</td><td>Repéré par le propriétaire, non envoyé ; quatrième interception réussie</td></tr>
+</tbody></table></div>
+<h3 id="4-4-ce-que-la-cinqui-me-occurrence-a-ajout">4.4 Ce que la cinquième occurrence a ajouté</h3>
+<ul><li><strong>Élargissement de portée.</strong> Le générateur ne recopie pas une instruction, il la résume. Ce faisant il a gardé le verbe et l'objet et perdu la restriction. La formule suggérée couvrait six fichiers de secrets que la todo list excluait explicitement et que seul le propriétaire peut manipuler.</li><li><strong>Imitation de format.</strong> Dans une session d'assistance sous mandat ouvert, le propriétaire dépose ses tâches en formules courtes « go X ». Une suggestion imite ce format à l'identique ; « anormal » est plus dur à détecter quand tout gate réel fait aussi trois mots.</li><li><strong>L'agent nourrit le générateur.</strong> Les remises des sessions se terminent par des formules de gate prêtes à copier (« prochain gate : <code>go commit journal</code> »). Ces formules sont dans l'historique que l'appel d'arrière-plan lit. La commodité offerte à l'humain est aussi la matière première de la suggestion.</li></ul>
+<h3 id="4-5-contr-les-en-vigueur">4.5 Contrôles en vigueur</h3>
+<ul><li><strong>Écho-confirmation.</strong> Tout gate anormal dans son contexte (anticipé, hors de sa fenêtre, incohérent avec l'état connu, ne reprenant pas mot pour mot une formule que la session vient de proposer) est reformulé et confirmé avec le propriétaire avant tout geste et avant toute entrée au registre. Après l'occurrence 4, la règle a été étendue aux opérations internes de l'agent (sa propre mémoire, son propre contexte).</li><li><strong>La borne dans la formule.</strong> Depuis le 15 septembre, toute formule de gate qu'un agent propose porte sa restriction dans le texte même (<code>go vidange _scratch hors sensibles</code>), pour qu'un résumeur ne puisse la perdre sans changer les mots.</li><li><strong>Aucune formule pour une pièce sensible.</strong> Les agents ne proposent aucun gate pour une action sur des secrets ou une suppression irréversible ; ces actions se décrivent en prose et se laissent à la formulation du propriétaire.</li><li><strong>Audit mécanique de la piste des décisions.</strong> Tout commit qui consigne une décision porte un préfixe réservé ; le superviseur vérifie, depuis l'historique de version contre le transcript, que l'événement gaté a bien eu lieu dans la fenêtre du propriétaire.</li><li><strong>Tests non annoncés du propriétaire.</strong> L'occurrence 4 en est un ; c'est la seule occurrence où le contrôle a failli, et il a failli côté agent, là où les tests visent.</li><li><strong>L'interrupteur.</strong> Couper la fonctionnalité au niveau des réglages est possible et relève du seul propriétaire : cela supprime le risque au prix d'une commodité réelle, et c'est imposable à l'échelle d'une organisation.</li></ul>
+<h3 id="4-6-risque-r-siduel">4.6 Risque résiduel</h3>
+<p>Avec les contrôles ci-dessus, le registre cote la probabilité Faible et la gravité Élevée. Quatre interceptions sur cinq ont été faites par l'humain, pas par l'agent : le contrôle qui marche, c'est l'habitude du propriétaire de lire la zone de saisie avant Entrée. C'est une ligne mince, et c'est la raison pour laquelle l'interrupteur figure parmi les contrôles au lieu d'être écarté.</p>
+
+<h2 id="5-une-piste-de-recherche-comment-font-les-autres-assistants">5. Une piste de recherche : comment font les autres assistants</h2>
+<p>Tous les assistants grand public proposent aujourd'hui des relances. Ce que la squad voulait savoir, et n'a pu établir qu'en partie le 15 septembre 2026, c'est si les trois mêmes propriétés se retrouvent ailleurs : généré par un appel séparé depuis l'historique, invisible dans les journaux tant que non envoyé, indiscernable une fois envoyé. Le tableau consigne ce que dit la documentation publique, et ce qu'elle ne dit pas.</p>
+<div class="scroll"><table><thead><tr><th>Produit</th><th>Ce qui est documenté</th><th>Où</th><th>Contrôle utilisateur ou administrateur</th><th>Questions ouvertes</th></tr></thead><tbody>
+<tr><td><strong>Claude Code</strong> (Anthropic)</td><td>Suggestion du prompt suivant générée après chaque réponse par une requête d'arrière-plan réutilisant le cache de prompt, depuis l'historique ; Tab ou flèche droite pour accepter, Entrée pour envoyer ; sautée en mode plan, après une erreur, près de la limite d'usage, dans les sessions des équipiers</td><td>Référence officielle du mode interactif et référence des réglages</td><td>Interrupteur <code>/config</code> ; <code>promptSuggestionEnabled: false</code> ; variable d'environnement prioritaire ; réglages gérés pour une organisation</td><td>Une suggestion acceptée est-elle marquée en télémétrie ; le générateur voit-il les résultats d'outils ou seulement les messages</td></tr>
+<tr><td><strong>ChatGPT</strong> (OpenAI)</td><td>Bulles de relance cliquables après les réponses, sur web et mobile, décrites par les utilisateurs depuis mai 2025 ; un interrupteur web rapporté par des utilisateurs et contesté par d'autres (« a placebo button ») ; un réglage « Follow-up behaviour » rapporté dans l'application de bureau</td><td>Fils du forum communautaire ; aucun article du centre d'aide trouvé décrivant la génération</td><td>Rapporté, non vérifié</td><td>Description officielle de la génération ; fiabilité de l'interrupteur ; les relances peuvent-elles porter des actions en mode agentique</td></tr>
+<tr><td><strong>Microsoft 365 Copilot</strong> et sa famille</td><td>Prompts de démarrage sur la page d'accueil d'un agent, jusqu'à dix, configurables par l'administrateur et auto-générés depuis la description de l'agent (Copilot Studio) ; dans Dynamics 365 Finance and Operations, le volet Copilot « generates and displays up to three questions … based on the existing conversation so far » et « avoids repeating questions you have already asked » (FAQ Responsible AI, atteinte par recherche, à relire) ; dans Dynamics 365 Contact Center, prompts rafraîchis tous les trois messages</td><td>Microsoft Learn (Copilot Studio, Dynamics 365) ; la page de support « About Copilot Chat responses » ne dit rien des relances</td><td>Configurable par l'administrateur pour les prompts de démarrage ; rien de trouvé pour les relances après réponse dans Copilot Chat</td><td>Microsoft 365 Copilot Chat génère-t-il lui-même des relances après réponse, à partir de quoi, et un tenant peut-il les couper</td></tr>
+<tr><td><strong>Gemini</strong> (Google)</td><td>Des utilisateurs rapportent des suggestions offertes « at the end of every prompt » qu'ils ne peuvent pas couper (fil de la communauté Gemini Apps, 2026) ; les administrateurs Workspace peuvent activer ou couper « Ask Gemini » par application</td><td>Fil communautaire ; aide administrateur Workspace</td><td>Rien de trouvé pour les suggestions elles-mêmes</td><td>Existe-t-il un réglage dédié ; comment les suggestions sont générées ; sont-elles journalisées</td></tr>
+</tbody></table></div>
+<p>Questions à instruire, dans l'ordre :</p>
+<ol><li><strong>Source de génération.</strong> La suggestion vient-elle du même appel de modèle que la réponse, d'un appel séparé, ou d'une heuristique locale légère ? La réponse détermine ce que la suggestion peut « savoir » et si elle peut faire fuir du contexte.</li><li><strong>Trace.</strong> Une suggestion acceptée laisse-t-elle une marque (un drapeau dans l'export, un événement de télémétrie) qui la distingue d'un texte tapé ? Pour toute organisation qui audite ses décisions depuis les journaux de conversation, c'est la propriété décisive.</li><li><strong>Contrôle administratif.</strong> Un tenant ou une organisation peut-il couper la fonctionnalité centralement ? Claude Code le documente ; les autres non, autant que la squad ait pu le trouver.</li><li><strong>Des actions, pas des questions.</strong> Dans les produits agentiques (assistants de code, agents Copilot, agents de navigation), une relance peut nommer une <em>action</em> plutôt qu'une question. L'occurrence 3 ci-dessus était une suppression. Quels produits laissent le générateur proposer des actions irréversibles, et avec quels garde-fous ?</li><li><strong>Perte par résumé.</strong> L'occurrence 5 montre un générateur qui perd une restriction en résumant. Protocole de test simple : écrire un item de todo list avec une exclusion explicite, laisser l'assistant en discuter, lire la suggestion.</li></ol>
+<p>Méthode : documentation officielle d'abord (notes de transparence, références administrateur), puis une conversation de test reproductible par produit, puis lecture du journal exporté. Les témoignages communautaires servent de pistes, jamais de faits.</p>
+
+<h2 id="6-retenir-pour-les-praticiens">6. À retenir pour les praticiens</h2>
+<ul><li>Décidez par écrit ce qui vaut décision. Si c'est une formule, sachez que l'outil l'a lue des dizaines de fois.</li><li>Traitez la zone de saisie comme une partie de la surface d'attaque : ce qui s'y trouve avant Entrée n'est pas forcément de vous.</li><li>Exigez l'écho-confirmation de toute instruction qui ne correspond pas à ce que vous venez de discuter ; cela coûte un échange et arrête le gate fictif avant le registre.</li><li>Mettez la restriction dans l'instruction, pas à côté. Les résumés gardent les verbes et les objets et perdent les exceptions.</li><li>Préférez les règles qu'un script peut vérifier aux règles qu'un modèle doit interpréter ; elles survivent au changement de modèle, d'outil et d'humeur.</li><li>Sachez où est l'interrupteur. Une commodité ne vaut d'être gardée que là où le registre peut prouver après coup qui a décidé.</li></ul>
+
+<h2 id="7-sources">7. Sources</h2>
+<p>Toutes lues le 15 septembre 2026. Les fils communautaires sont cités comme pistes, pas comme faits.</p>
+<ol class="srclist">
+<li id="S1"><span class="tag">S1</span> Anthropic, <em>Claude Code documentation : Interactive mode</em>, sections « Prompt suggestions » et « Turn prompt suggestions off » : <a href="https://code.claude.com/docs/en/interactive-mode" rel="noopener noreferrer" target="_blank">https://code.claude.com/docs/en/interactive-mode</a> (lu le 15 septembre 2026).</li>
+<li id="S2"><span class="tag">S2</span> Anthropic, <em>Claude Code documentation : Settings</em> : <a href="https://code.claude.com/docs/en/settings" rel="noopener noreferrer" target="_blank">https://code.claude.com/docs/en/settings</a> (lu le 15 septembre 2026).</li>
+<li id="S3"><span class="tag">S3</span> OpenAI Developer Community, « Disable or Customize the 'Follow Up' Suggestions » (mai à septembre 2025) : <a href="https://community.openai.com/t/disable-or-customize-the-follow-up-suggestions/1254246" rel="noopener noreferrer" target="_blank">https://community.openai.com/t/disable-or-customize-the-follow-up-suggestions/1254246</a> ; « How to disable prompt suggestions » : <a href="https://community.openai.com/t/how-to-disable-prompt-suggestions/316524" rel="noopener noreferrer" target="_blank">https://community.openai.com/t/how-to-disable-prompt-suggestions/316524</a> ; « Feature Request: Setting to Disable Follow-up Suggestions » : <a href="https://community.openai.com/t/feature-request-setting-to-disable-follow-up-suggestions/1396688." rel="noopener noreferrer" target="_blank">https://community.openai.com/t/feature-request-setting-to-disable-follow-up-suggestions/1396688.</a></li>
+<li id="S4"><span class="tag">S4</span> Microsoft Learn, <em>Configure suggested prompts for Teams and Microsoft 365</em> (Copilot Studio) : <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/configure-starter-prompts." rel="noopener noreferrer" target="_blank">https://learn.microsoft.com/en-us/microsoft-copilot-studio/configure-starter-prompts.</a></li>
+<li id="S5"><span class="tag">S5</span> Microsoft Learn, <em>Responsible AI FAQ for Follow-up questions in the Copilot sidecar (preview)</em>, Dynamics 365 Finance and Operations : <a href="https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/fin-ops/copilot/faq-copilot-suggested-questions" rel="noopener noreferrer" target="_blank">https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/fin-ops/copilot/faq-copilot-suggested-questions</a> (atteinte par recherche le 15 septembre 2026 ; l'accès direct a redirigé vers la vue d'ensemble Responsible AI, à relire).</li>
+<li id="S6"><span class="tag">S6</span> Microsoft Learn, <em>Use Copilot-generated prompts in your CRM solutions</em> (Dynamics 365 Contact Center) : <a href="https://learn.microsoft.com/en-us/dynamics365/release-plan/2024wave2/service/dynamics365-contact-center/use-copilot-generated-prompts-crm-solutions." rel="noopener noreferrer" target="_blank">https://learn.microsoft.com/en-us/dynamics365/release-plan/2024wave2/service/dynamics365-contact-center/use-copilot-generated-prompts-crm-solutions.</a></li>
+<li id="S7"><span class="tag">S7</span> Microsoft Support, <em>About Copilot Chat responses</em> : <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/about-copilot-chat-responses" rel="noopener noreferrer" target="_blank">https://support.microsoft.com/en-us/microsoft-365-copilot/about-copilot-chat-responses</a> (aucune mention des relances le 15 septembre 2026).</li>
+<li id="S8"><span class="tag">S8</span> Google, communauté Gemini Apps, « I can't stop Gemini from offering suggestions which I don't want at the end of every prompt » : <a href="https://support.google.com/gemini/thread/411870292" rel="noopener noreferrer" target="_blank">https://support.google.com/gemini/thread/411870292</a> ; aide administrateur Google Workspace, <em>Turn Ask Gemini on or off for Meet</em> : <a href="https://knowledge.workspace.google.com/admin/meet/turn-ask-gemini-on-or-off-for-meet." rel="noopener noreferrer" target="_blank">https://knowledge.workspace.google.com/admin/meet/turn-ask-gemini-on-or-off-for-meet.</a></li>
+<li id="S9"><span class="tag">S9</span> Le registre des risques, le journal des changements et les transcripts de la squad (internes, non publiés).</li>
+</ol>
+
+
+    <footer lang="en">
+      <p>This text is © CD Consulting R&amp;D and licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" rel="noopener noreferrer" target="_blank">CC BY-NC-ND 4.0</a> (attribution, non-commercial, no derivatives). Quoted figures and sentences remain the property of their publishers, Anthropic, OpenAI, Microsoft et Google, cités dans les sources.</p>
+      <p class="backlinks"><a href="./">← KB-RISK</a> · <a href="../index.html">CD Consulting R&amp;D</a></p>
+    </footer>
+  </main>
+  <script>(function(){var b=document.getElementById("theme");b.addEventListener("click",function(){var r=document.documentElement;var cur=r.getAttribute("data-theme");var sys=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";var now=(cur||sys)==="dark"?"light":"dark";r.setAttribute("data-theme",now);try{localStorage.setItem("kb-theme",now);}catch(e){}});})();</script>
+</body>
+</html>
