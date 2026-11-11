@@ -104,23 +104,53 @@
       color: #8a8578;
     }
 
-    @media (prefers-color-scheme: dark) {
-      body { background: #12151a; color: #eceef1; }
-      .lead, .entry .summary { color: #a8adb6; }
-      .mark, h2, a { color: #8fb3c4; }
-      .entry, .entry .companion, h2, footer { border-color: #2a3038; }
-      .entry .enjeu { color: #8fb3c4; }
-      nav.crumbs, .entry .date, footer { color: #767c86; }
-      nav.crumbs a { color: #8fb3c4; }
-      .entry h3 a { color: #eceef1; }
-      .entry h3 a:hover { color: #8fb3c4; }
-      .entry .companion { color: #a8adb6; }
-      a { border-bottom-color: #3a4a56; }
-      a:hover { border-bottom-color: #8fb3c4; }
+    .theme {
+      position: fixed; top: 14px; right: 14px; z-index: 5;
+      font-family: system-ui, sans-serif; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+      background: #fff; color: #555; border: 1px solid #ddd8cf; border-radius: 99px; padding: 6px 12px; cursor: pointer;
     }
+    .theme:hover { color: #3d6478; border-color: #3d6478; }
+    @media (max-width: 640px) { .theme { top: 8px; right: 8px; } }
+    @media print { .theme { display: none; } }
+
+    /* dark: the system setting by default, the reader's choice once the button has been used */
+    :root[data-theme="light"] { color-scheme: light; }
+    :root[data-theme="dark"] { color-scheme: dark; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) body { background: #12151a; color: #eceef1; }
+      :root:not([data-theme="light"]) .lead, :root:not([data-theme="light"]) .entry .summary { color: #a8adb6; }
+      :root:not([data-theme="light"]) .mark, :root:not([data-theme="light"]) h2, :root:not([data-theme="light"]) a { color: #8fb3c4; }
+      :root:not([data-theme="light"]) .entry, :root:not([data-theme="light"]) .entry .companion, :root:not([data-theme="light"]) h2, :root:not([data-theme="light"]) footer { border-color: #2a3038; }
+      :root:not([data-theme="light"]) .entry .enjeu { color: #8fb3c4; }
+      :root:not([data-theme="light"]) nav.crumbs, :root:not([data-theme="light"]) .entry .date, :root:not([data-theme="light"]) footer { color: #767c86; }
+      :root:not([data-theme="light"]) nav.crumbs a { color: #8fb3c4; }
+      :root:not([data-theme="light"]) .entry h3 a { color: #eceef1; }
+      :root:not([data-theme="light"]) .entry h3 a:hover { color: #8fb3c4; }
+      :root:not([data-theme="light"]) .entry .companion { color: #a8adb6; }
+      :root:not([data-theme="light"]) a { border-bottom-color: #3a4a56; }
+      :root:not([data-theme="light"]) a:hover { border-bottom-color: #8fb3c4; }
+      :root:not([data-theme="light"]) .theme { background: #1a1f27; color: #a8adb6; border-color: #2a3038; }
+      :root:not([data-theme="light"]) .theme:hover { color: #8fb3c4; border-color: #8fb3c4; }
+    }
+    :root[data-theme="dark"] body { background: #12151a; color: #eceef1; }
+    :root[data-theme="dark"] .lead, :root[data-theme="dark"] .entry .summary { color: #a8adb6; }
+    :root[data-theme="dark"] .mark, :root[data-theme="dark"] h2, :root[data-theme="dark"] a { color: #8fb3c4; }
+    :root[data-theme="dark"] .entry, :root[data-theme="dark"] .entry .companion, :root[data-theme="dark"] h2, :root[data-theme="dark"] footer { border-color: #2a3038; }
+    :root[data-theme="dark"] .entry .enjeu { color: #8fb3c4; }
+    :root[data-theme="dark"] nav.crumbs, :root[data-theme="dark"] .entry .date, :root[data-theme="dark"] footer { color: #767c86; }
+    :root[data-theme="dark"] nav.crumbs a { color: #8fb3c4; }
+    :root[data-theme="dark"] .entry h3 a { color: #eceef1; }
+    :root[data-theme="dark"] .entry h3 a:hover { color: #8fb3c4; }
+    :root[data-theme="dark"] .entry .companion { color: #a8adb6; }
+    :root[data-theme="dark"] a { border-bottom-color: #3a4a56; }
+    :root[data-theme="dark"] a:hover { border-bottom-color: #8fb3c4; }
+    :root[data-theme="dark"] .theme { background: #1a1f27; color: #a8adb6; border-color: #2a3038; }
+    :root[data-theme="dark"] .theme:hover { color: #8fb3c4; border-color: #8fb3c4; }
   </style>
+  <script>(function(){try{var t=localStorage.getItem("kb-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 </head>
 <body>
+  <button class="theme" id="theme" type="button" aria-label="Switch between light and dark">Light / Dark</button>
   <main>
     <p class="mark">CD Consulting R&amp;D</p>
     <nav class="crumbs"><a href="../index.html">Home</a> · KB-RISK</nav>
@@ -161,5 +191,6 @@
 
     <footer>cd-consulting-rd.be &mdash; KB-RISK, served by GitHub Pages</footer>
   </main>
+  <script>(function(){var b=document.getElementById("theme");b.addEventListener("click",function(){var r=document.documentElement;var cur=r.getAttribute("data-theme");var sys=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";var now=(cur||sys)==="dark"?"light":"dark";r.setAttribute("data-theme",now);try{localStorage.setItem("kb-theme",now);}catch(e){}});})();</script>
 </body>
 </html>
